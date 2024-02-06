@@ -1,18 +1,8 @@
 <div class="container">
 
-  <form class="row mt-3 gx-3 gy-2 align-items-center justify-content-center">
-    <div class="col-sm-6">
-      <label class="visually-hidden" for="specificSizeInputName">Wish</label>
-      <input type="text" name="new-Wish-Text" class="form-control" [(ngModel)] = "newWishText">
-    </div>
-    <div class="col-sm-auto">
-      <button 
-      type="submit" 
-      class="btn btn-primary"
-      (click)="$event.preventDefault(); addNewWish()"
-      >Add Wish</button>
-    </div>
-  </form>
+  <add-wish-form 
+  (addWish)="items.push($event)"
+  ></add-wish-form>  
 
   <div class="row mt-3">
     <div class="col-sm-2">
@@ -28,26 +18,8 @@
   </div>
 
   <div class="row mt-3">
-    <div *ngIf="visibleItems.length == 0; else showItems">
-      There are not wishes to display
-    </div>
-    <ng-template #showItems>
-      <ul class="wish-list">
-        <li *ngFor="let item of visibleItems; index as ii">
-          <div class="form-check">
-            <label class="form-check-label">
-              <input
-                class="checkbox"
-                type="checkbox"
-                [checked]="item.isComplete"
-                [attr.data-index]="ii"
-                (click)="toggleItem(item)"
-              > {{item.wishText}}
-            </label>
-          </div>
-        </li>
-      </ul>
-    </ng-template>
+    <wish-list [wishes] = "visibleItems">
+    </wish-list>
   </div>
 
 
